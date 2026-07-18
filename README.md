@@ -1,28 +1,47 @@
 # Recon
 
-Go tool to collect subdomains for domains you are authorized to test.
+Recon is a small Go-based CLI for collecting authorized target hosts, resolving them, and checking which ones are alive over HTTP.
+
+## Features
+- Collect domains from one or more input files
+- Resolve DNS names
+- Check HTTP responsiveness
+- Write normalized output files
+- Easy Linux install script
 
 ## Build
 ```bash
-go build -o recon ./cmd/recon
+make build
 ```
 
 ## Run
 Single domain:
 ```bash
-./recon -d example.com -o subdomains.txt
+./bin/recon -d example.com
 ```
 
 From file:
 ```bash
-./recon -f domains.txt -o subdomains.txt
+./bin/recon -f domains.txt
+```
+
+## Install on Linux
+```bash
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+Then run:
+```bash
+recon -d example.com
 ```
 
 ## Output
-The tool writes a deduplicated, sorted list to the output file.
+Results are written to the `output/` directory:
+- `all.txt`
+- `resolved.txt`
+- `alive.txt`
+- `report.json`
 
-## Linux
-```bash
-chmod +x recon
-./recon -d example.com -o out.txt
-```
+## Notes
+Use this only on domains and assets you are authorized to test.
